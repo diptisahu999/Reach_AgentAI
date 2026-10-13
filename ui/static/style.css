@@ -548,29 +548,58 @@ body {
 
 /* Markdown Content Area */
 .markdown-body {
-  font-size: 15px;
-  line-height: 1.7;
+  font-size: 14px;
+  line-height: 1.65;
   color: var(--text-main);
 }
 
-.markdown-body h3 {
-  font-size: 16px;
+.markdown-body h1 {
+  font-size: 17px;
   font-weight: 600;
-  margin: 18px 0 8px;
+  margin: 16px 0 8px;
+  color: #f1f5f9;
+}
+
+.markdown-body h2 {
+  font-size: 15.5px;
+  font-weight: 600;
+  margin: 14px 0 6px;
   color: #e2e8f0;
 }
 
+.markdown-body h3 {
+  font-size: 14.5px;
+  font-weight: 600;
+  margin: 14px 0 6px;
+  color: #e2e8f0;
+}
+
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  font-size: 13.5px;
+  font-weight: 600;
+  margin: 10px 0 4px;
+  color: #cbd5e1;
+}
+
+.markdown-body h1 a,
+.markdown-body h2 a,
 .markdown-body h3 a {
   color: #818cf8;
   text-decoration: none;
 }
 
+.markdown-body h1 a:hover,
+.markdown-body h2 a:hover,
 .markdown-body h3 a:hover {
   text-decoration: underline;
 }
 
 .markdown-body p {
-  margin-bottom: 12px;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 10px;
 }
 
 .markdown-body blockquote {
@@ -578,9 +607,29 @@ body {
   background: rgba(99, 102, 241, 0.05);
   padding: 8px 14px;
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  margin: 8px 0 14px;
-  font-size: 14px;
+  margin: 8px 0 12px;
+  font-size: 13px;
+  line-height: 1.6;
   color: #cbd5e1;
+}
+
+.markdown-body blockquote * {
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  line-height: 1.6 !important;
+  margin: 4px 0 !important;
+  color: #cbd5e1 !important;
+}
+
+.markdown-body blockquote strong,
+.markdown-body blockquote b {
+  font-weight: 600 !important;
+  color: #f1f5f9 !important;
+}
+
+.markdown-body blockquote a {
+  color: #818cf8 !important;
+  text-decoration: underline;
 }
 
 .markdown-body code {

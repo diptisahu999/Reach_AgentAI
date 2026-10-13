@@ -20,6 +20,22 @@ from agent_reach.config import Config
 from agent_reach.doctor import check_all
 
 UI_DIR = Path(__file__).resolve().parent
+ROOT_DIR = UI_DIR.parent
+ENV_FILE = ROOT_DIR / ".env"
+
+
+def _reload_env():
+    """Ensure environment variables from .env file are loaded/updated."""
+    try:
+        from dotenv import load_dotenv
+
+        if ENV_FILE.exists():
+            load_dotenv(ENV_FILE, override=True)
+    except Exception:
+        pass
+
+
+_reload_env()
 
 app = FastAPI(
     title="Agent Reach AI Web Interface",
@@ -60,6 +76,7 @@ class ChatResponse(BaseModel):
 @app.get("/api/status")
 def get_system_status():
     """Return health check and status of Agent Reach channels."""
+    _reload_env()
     config = Config()
     results = check_all(config)
     exa_configured = bool(get_exa_api_key(config))
@@ -196,6 +213,7 @@ def handle_chat_query(req: QueryRequest):
             pass
 
     # Perform Exa Semantic Search
+    _reload_env()
     try:
         data = search_exa(query=raw_query, num_results=req.num_results or 5)
     except ExaAPIError as e:
@@ -236,6 +254,8 @@ def handle_chat_query(req: QueryRequest):
         if highlights:
             for h in highlights:
                 clean_h = " ".join(h.split())
+                # Strip leading or embedded markdown heading markers (e.g. '# ', '## ') so quotes don't become giant headings
+                clean_h = re.sub(r"(^|\s)#+\s+", r"\1", clean_h).strip()
                 synthesis_lines.append(f"> {clean_h}\n")
         else:
             synthesis_lines.append("> *(No highlighted snippet provided by source)*\n")

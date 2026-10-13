@@ -10,6 +10,15 @@ ROOT_DIR = Path(__file__).resolve().parent
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
+try:
+    from dotenv import load_dotenv
+
+    env_file = ROOT_DIR / ".env"
+    if env_file.exists():
+        load_dotenv(env_file, override=True)
+except Exception:
+    pass
+
 import uvicorn
 from ui.server import app
 
